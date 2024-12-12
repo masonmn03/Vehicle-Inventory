@@ -87,9 +87,23 @@ def main():
         elif choice == '2':
             make = input("Enter the make of the car:")
             model = input("Enter the model of the car:")
-            year = int(input('Enter the year of the car:'))
-            new_price = float(input("Enter the new price: "))
-            new_file = input('Enter a file name:')
+            while True:     # Validating the input for year
+                try:
+                    year = int(input('Enter the year of the car:'))
+                    break
+                except ValueError:
+                    print("Invalid input. Please enter a numeric year.")
+            
+            while True:     # Validating the input for price
+                try:
+                    new_price = float(input("Enter the new price: "))
+                    if new_price < 0:
+                        raise ValueError
+                    break
+                except ValueError:
+                    print("Invalid input. Please enter a numeric price.")
+                    
+            new_file = input('Enter a name for the new file with updated prices:')
             print(update_price(inventory, make, model, year, new_price))
             update_file(new_file, inventory)
             
@@ -107,4 +121,5 @@ def main():
         else:
             print("Invalid choice. Please enter a number between 1 and 5.")
         
-main()
+if __name__ == "__main__":
+    main()
